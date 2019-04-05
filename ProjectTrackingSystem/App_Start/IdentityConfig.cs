@@ -10,25 +10,26 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using ProjectTrackingSystem.Data;
 using ProjectTrackingSystem.Models;
 
 namespace ProjectTrackingSystem
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public System.Threading.Tasks.Task SendAsync(IdentityMessage message)
         {
             // Dołącz tutaj usługę poczty e-mail, aby wysłać wiadomość e-mail.
-            return Task.FromResult(0);
+            return System.Threading.Tasks.Task.FromResult(0);
         }
     }
 
     public class SmsService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public System.Threading.Tasks.Task SendAsync(IdentityMessage message)
         {
             // Dołącz tutaj usługę wiadomości SMS, aby wysłać wiadomość SMS.
-            return Task.FromResult(0);
+            return System.Threading.Tasks.Task.FromResult(0);
         }
     }
 
@@ -42,7 +43,7 @@ namespace ProjectTrackingSystem
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<MainDbContext>()));
             // Konfiguruj logikę weryfikacji nazw użytkowników
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
