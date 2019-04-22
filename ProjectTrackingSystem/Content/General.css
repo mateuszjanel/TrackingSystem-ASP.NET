@@ -1,0 +1,26 @@
+﻿.inside_table {
+    background-color: ghostwhite
+}
+
+.above-table-button-inline-h3 {
+    display: inline-block;
+    float: right;
+    padding-top: 20px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.btn_in-table {
+    float: right;
+    }
+.btn_img {
+    width: 15px;
+}
+
+.site-userbox {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+    

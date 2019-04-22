@@ -1,0 +1,81 @@
+﻿@model ProjectTrackingSystem.Models.ProjectDetails_AdminPanelModels
+
+@{
+    ViewBag.Title = "Project Details";
+}
+
+@Styles.Render("~/Content/General.css")
+
+<h2><i> @Html.DisplayFor(model => model.Project.projectName)</i>     Details</h2>
+
+
+<div class="container-fluid">
+
+    <div class="col-lg-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Project</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Project.projectID)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Project.projectName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Project.projectName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Project.projectName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Project.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Project.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Project.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+
+    </div>
+    <div class="col-lg-6">
+        <h4>Contributors</h4>
+        <hr />
+        @if (Model.Project.Contributors == null)
+        {
+            <span>No contributors in this project.</span>
+        }
+        else
+        {
+            <table class="table">
+                @foreach (var cont in Model.Project.Contributors)
+                {
+                    <tr>
+                        <td>
+                            <span>@Html.DisplayFor(item => cont.Name)</span>&nbsp;<span>@Html.DisplayFor(item => cont.Surname)</span>&nbsp;<span>(@Html.DisplayFor(item => cont.UserName))</span> <button type="button" id="add_proj_button" class="btn_in-table btn btn-default"><img src="~/Content/Img/trash-circle-red-512.png" class="btn_img" /> </button>
+                            <span>@Html.HiddenFor(item => cont.Id)</span>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

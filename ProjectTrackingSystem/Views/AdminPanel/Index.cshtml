@@ -1,0 +1,90 @@
+﻿@model ProjectTrackingSystem.Models.AdminPanelModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@Styles.Render("~/Content/General.css")
+
+<h2>Admin Panel</h2>
+
+
+<div class="container-fluid">
+
+    <div class="col-lg-6">
+        <h3>Users</h3>
+        <div class="inside_table">
+            <table class="table">
+                <tr>
+                    <th>
+                        Username/Email
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Surname
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div style="width:100%">
+            <div class="inline-block"><h3 id="projects">Projects</h3></div>
+            <div class="above-table-button-inline-h3"><button type="button" id="add_proj_button" class="btn btn-default" onclick="location.href='@Url.Action("CreateProject", "AdminPanel")'">New project</button></div>
+        </div>
+        <div class="inside_table">
+            <table class="table">
+                <tr>
+                    <th>
+                        Project Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>Details</th>
+                </tr>
+
+                @foreach (var item in Model.Projects)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.projectID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.projectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "ProjectDetails", "AdminPanel", new { id = item.projectID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
