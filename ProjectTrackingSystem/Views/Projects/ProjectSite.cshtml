@@ -1,0 +1,76 @@
+﻿@model ProjectTrackingSystem.Models.ProjectSiteModels
+@{
+    ViewBag.Title = "ProjectSite";
+}
+
+@Styles.Render("~/Content/General.css")
+
+<h2>Project <i>@Html.DisplayFor(model => model.projectName)</i></h2>
+<hr />
+<br />
+
+<div class="container-fluid">
+
+    <div class="col-lg-8">
+        <h4>Project details</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.projectID)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.projectID)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.projectName)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.projectName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="col-lg-4">
+        <h4>Contributors</h4>
+        <div class="site-userbox">
+            @foreach (var item in Model.Contributors)
+            {
+                <span>@Html.DisplayFor(modelItem => item.Name)</span> <span>@Html.DisplayFor(modelItem => item.Surname)</span> <span>(@Html.DisplayFor(modelItem => item.UserName))</span>
+                <hr />
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="above-table-button-inline-h3"><button type="button" class="btn btn-default" onclick="location.href='@Url.Action("CreateTask", new { projectId = Model.projectID})'">Create task</button></div>
+<h3>Task list</h3>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Id", "ProjectSite", new { id = Model.projectID, sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Name", "ProjectSite", new { id = Model.projectID, sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th></th>
+    </tr>
+</table>
+@foreach (var item in Model.Tasks)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">#@Html.DisplayFor(modelItem => item.ID) <span>@Html.DisplayFor(modelItem => item.Name)</span> <span style="float:right">Status: @Html.DisplayFor(modelItem => item.Status)</span></div>
+    </div>
+}

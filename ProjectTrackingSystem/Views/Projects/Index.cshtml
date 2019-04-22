@@ -1,0 +1,43 @@
+﻿@model ProjectTrackingSystem.Models.ProjectsIndexModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Your Projects</h2>
+
+
+<h3>Users</h3>
+<div class="inside_table">
+    <table class="table">
+        <tr>
+            <th>
+                Project Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.ProjectList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Tasks", "ProjectSite", "Projects", new { id = item.projectID }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

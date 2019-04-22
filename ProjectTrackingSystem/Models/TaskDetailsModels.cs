@@ -1,16 +1,16 @@
-﻿using System;
+﻿using ProjectTrackingSystem.Data;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ProjectTrackingSystem.Data
+namespace ProjectTrackingSystem.Models
 {
-    public class Task
+    public class TaskDetailsModels
     {
-        [Key] public int ID { get; set; }
         [Required] public string Name { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public enum StatusE
         {
@@ -32,6 +32,5 @@ namespace ProjectTrackingSystem.Data
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Worklog> Worklogs { get; set; }
         public Project Project { get; set; }
-
     }
 }

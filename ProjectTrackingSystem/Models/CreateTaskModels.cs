@@ -1,16 +1,17 @@
-﻿using System;
+﻿using ProjectTrackingSystem.Data;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
-namespace ProjectTrackingSystem.Data
+namespace ProjectTrackingSystem.Models
 {
-    public class Task
+    public class CreateTaskModels
     {
-        [Key] public int ID { get; set; }
         [Required] public string Name { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public enum StatusE
         {
@@ -26,12 +27,12 @@ namespace ProjectTrackingSystem.Data
             Done
         }
         public StatusE Status { get; set; }
-        public Models.ApplicationUser Reporter { get; set; }
-        public Models.ApplicationUser DevAssignee { get; set; }
-        public Models.ApplicationUser POAssignee { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Worklog> Worklogs { get; set; }
+        public string ReporterId { get; set; }
+        public string DevAssigneeId { get; set; }
+        public string POAssigneeId { get; set; }
         public Project Project { get; set; }
+        public int ProjectId { get; set; }
 
+        public IEnumerable<SelectListItem> Users { get; set; }
     }
 }
