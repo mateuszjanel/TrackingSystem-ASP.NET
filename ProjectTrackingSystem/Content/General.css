@@ -23,4 +23,10 @@
     padding: 10px;
     border: 1px solid #ddd;
 }
+
+.displayfor-site-userbox {
+    text-align: left;
+    padding-top: 7px;
+    margin-bottom: 0;
+}
     

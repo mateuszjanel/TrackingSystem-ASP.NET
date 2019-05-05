@@ -26,12 +26,12 @@ namespace ProjectTrackingSystem.Data
             Done
         }
         public StatusE Status { get; set; }
-        public Models.ApplicationUser Reporter { get; set; }
-        public Models.ApplicationUser DevAssignee { get; set; }
-        public Models.ApplicationUser POAssignee { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Worklog> Worklogs { get; set; }
-        public Project Project { get; set; }
+        public virtual Models.ApplicationUser Reporter { get; set; }
+        public virtual Models.ApplicationUser DevAssignee { get; set; }
+        public virtual Models.ApplicationUser POAssignee { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Worklog> Worklogs { get; set; }
+        public virtual Project Project { get; set; }
 
     }
 }

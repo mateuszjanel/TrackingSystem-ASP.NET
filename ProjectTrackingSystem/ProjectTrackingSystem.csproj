@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OwnHelpers\EnumDisplayHelper.cs" />
@@ -203,15 +204,50 @@
     <Compile Include="Migrations\201904161230114_enums.Designer.cs">
       <DependentUpon>201904161230114_enums.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904240608538_VirtProps.cs" />
+    <Compile Include="Migrations\201904240608538_VirtProps.Designer.cs">
+      <DependentUpon>201904240608538_VirtProps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904240612161_VirtProps2.cs" />
+    <Compile Include="Migrations\201904240612161_VirtProps2.Designer.cs">
+      <DependentUpon>201904240612161_VirtProps2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905022040013_props_in_comment.cs" />
+    <Compile Include="Migrations\201905022040013_props_in_comment.Designer.cs">
+      <DependentUpon>201905022040013_props_in_comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905022206363_commentId.cs" />
+    <Compile Include="Migrations\201905022206363_commentId.Designer.cs">
+      <DependentUpon>201905022206363_commentId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905031209533_requiredContent.cs" />
+    <Compile Include="Migrations\201905031209533_requiredContent.Designer.cs">
+      <DependentUpon>201905031209533_requiredContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905051114078_taskToWorklog.cs" />
+    <Compile Include="Migrations\201905051114078_taskToWorklog.Designer.cs">
+      <DependentUpon>201905051114078_taskToWorklog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905051125272_worklogCreationTime.cs" />
+    <Compile Include="Migrations\201905051125272_worklogCreationTime.Designer.cs">
+      <DependentUpon>201905051125272_worklogCreationTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905051435234_testMigration.cs" />
+    <Compile Include="Migrations\201905051435234_testMigration.Designer.cs">
+      <DependentUpon>201905051435234_testMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminPanelModel.cs" />
+    <Compile Include="Models\CommentModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProjectDetails_AdminPanelModels.cs" />
     <Compile Include="Models\ProjectsIndexModel.cs" />
     <Compile Include="Models\ProjectSiteModels.cs" />
     <Compile Include="Models\CreateTaskModels.cs" />
+    <Compile Include="Models\TaskDetailsModels.cs" />
+    <Compile Include="Models\WorklogsModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -279,6 +315,9 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\ProjectSite.cshtml" />
     <Content Include="Views\Projects\CreateTask.cshtml" />
+    <Content Include="Views\Projects\TaskDetails.cshtml" />
+    <Content Include="Views\Comments\_CreateComment.cshtml" />
+    <Content Include="Views\Comments\_CreateWorklog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -308,6 +347,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904161230114_enums.resx">
       <DependentUpon>201904161230114_enums.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904240608538_VirtProps.resx">
+      <DependentUpon>201904240608538_VirtProps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904240612161_VirtProps2.resx">
+      <DependentUpon>201904240612161_VirtProps2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905022040013_props_in_comment.resx">
+      <DependentUpon>201905022040013_props_in_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905022206363_commentId.resx">
+      <DependentUpon>201905022206363_commentId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905031209533_requiredContent.resx">
+      <DependentUpon>201905031209533_requiredContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905051114078_taskToWorklog.resx">
+      <DependentUpon>201905051114078_taskToWorklog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905051125272_worklogCreationTime.resx">
+      <DependentUpon>201905051125272_worklogCreationTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905051435234_testMigration.resx">
+      <DependentUpon>201905051435234_testMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -30,5 +30,6 @@ namespace ProjectTrackingSystem.Data
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Worklog> Worklogs { get; set; }
 
+        public System.Data.Entity.DbSet<ProjectTrackingSystem.Models.WorklogsModels> WorklogsModels { get; set; }
     }
 }

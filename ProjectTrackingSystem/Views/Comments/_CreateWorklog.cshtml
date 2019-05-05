@@ -1,0 +1,55 @@
+﻿@model ProjectTrackingSystem.Models.WorklogsModels
+
+@{ Layout = null; }
+
+@using (Html.BeginForm("_CreateWorklog", "Comments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h3>@Html.DisplayNameFor(model => model.Worklogs)</h3>
+    <hr />
+
+    <div>
+        @if (Model.Worklogs.Count() != 0)
+        {
+            <h4><span>@Html.LabelFor(model => model.TaskTime)</span> <span>@Html.DisplayFor(model => model.TaskTime) mins</span></h4>
+            <div class="panel-group">
+                @foreach (var item in Model.Worklogs)
+                {
+                    <div class="panel panel-success">
+                        <div class="panel-heading"><span>@Html.DisplayFor(Item => item.CreationTime)</span> <span>@Html.DisplayFor(Item => item.Logger.Name)</span> <span>@Html.DisplayFor(Item => item.Logger.Surname)</span> <span>(@Html.DisplayFor(Item => item.Logger.UserName))</span></div>
+                        <div class="panel-body"><span>@Html.DisplayFor(Item => item.LoggedTime) mins</span></div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <h4>Add Worklog</h4>
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.LoggedTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LoggedTime, new { htmlAttributes = new { @class = "form-control" } }) mins
+                @Html.ValidationMessageFor(model => model.LoggedTime, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(model => model.TaskId)
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

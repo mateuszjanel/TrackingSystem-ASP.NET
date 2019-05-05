@@ -76,18 +76,6 @@ namespace ProjectTrackingSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult TaskDetails(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-
-
-            return View();
-        }
-
         public ActionResult CreateTask(int? projectId)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -132,9 +120,86 @@ namespace ProjectTrackingSystem.Controllers
             return View(taskToAdd);
         }
 
-        public ActionResult TaskDetails()
+        public ActionResult TaskDetails(int? Id)
         {
+            if (Id == null)
+            {
+                return RedirectToAction("Index");
+            }
 
+            Task task = db.Tasks.Find(Id);
+            if (task == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            Project projectFromTask = task.Project;
+            if (projectFromTask.Contributors.Contains(user))
+            {
+                var users = projectFromTask.Contributors.ToList().OrderBy(x => x.Surname);
+                var list = users.Select(x => new SelectListItem() { Value = x.Id, Text = x.Name + " " + x.Surname });
+                var model = new TaskDetailsModels
+                {
+                    ID = task.ID,
+                    Name = task.Name,
+                    Description = task.Description,
+                    ProjectName = task.Project.projectName,
+                    Status = (Models.TaskDetailsModels.StatusE)task.Status,
+                    ReporterName = task.Reporter.Name + " " + task.Reporter.Surname,
+                    ReporterId = task.Reporter.Id,
+                    Comments = task.Comments,
+                    Worklogs = task.Worklogs,
+                    Users = list
+                };
+                if (task.DevAssignee != null)
+                {
+                    model.DevAssigneeName = task.DevAssignee.Name + " " + task.DevAssignee.Surname;
+                    model.DevAssigneeId = task.DevAssignee.Id;
+                }
+                if (task.POAssignee != null)
+                {
+                    model.POAssigneeName = task.POAssignee.Name + " " + task.POAssignee.Surname;
+                    model.POAssigneeId = task.POAssignee.Id;
+                }
+                return View(model);
+            }
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        public ActionResult TaskDetails(TaskDetailsModels taskToEdit)
+        {
+            if (ModelState.IsValid)
+            {
+                var taskFromDB = db.Tasks.Find(taskToEdit.ID);
+                //var task = new Task
+                //{
+                //    ID = taskToEdit.ID,
+                //    Name = taskToEdit.Name,
+                //    Description = taskToEdit.Description,
+                //    Status = (Task.StatusE)taskToEdit.Status,
+                //    Reporter = db.Users.Find(taskToEdit.ReporterId),
+                //    DevAssignee = db.Users.Find(taskToEdit.DevAssigneeId),
+                //    POAssignee = db.Users.Find(taskToEdit.POAssigneeId),
+                //    Project = taskFromDB.Project,
+                //    Comments = taskFromDB.Comments,
+                //    Worklogs = taskFromDB.Worklogs
+                //};
+
+                taskFromDB.Name = taskToEdit.Name;
+                taskFromDB.Description = taskToEdit.Description;
+                taskFromDB.DevAssignee = db.Users.Find(taskToEdit.DevAssigneeId);
+                taskFromDB.POAssignee = db.Users.Find(taskToEdit.POAssigneeId);
+                taskFromDB.Status = (Task.StatusE)taskToEdit.Status;
+
+                db.Entry(taskFromDB).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("TaskDetails", new { Id = taskToEdit.ID });
+            }
+            return View(taskToEdit);
         }
 
         // GET: Projects/Details/5

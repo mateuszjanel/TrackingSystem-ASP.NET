@@ -9,7 +9,9 @@ namespace ProjectTrackingSystem.Data
     public class Worklog
     {
         [Key] public int WorklogId { get; set; }
-        public Models.ApplicationUser Logger { get; set; }
+        public DateTime CreationTime { get; set; }
+        public virtual Models.ApplicationUser Logger { get; set; }
         public float LoggedTime { get; set; }
+        public virtual Task Task { get; set; }
     }
 }

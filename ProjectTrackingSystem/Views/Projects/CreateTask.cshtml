@@ -41,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-6 form-horizontal">
             <div class="form-group">
                 @Html.LabelFor(model => model.Project, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -86,12 +87,14 @@
 @section Scripts {
 
     @*<script type="text/javascript">
-        $(document).ready(function () {
-            $("#SelectedId").change(function (evt) {
-                $("#DevAssigneeChosenId").val($("#SelectedId option:selected").text().trim());
-            });
-        });*@
-    </script>
+            $(document).ready(function () {
+                $("#SelectedId").change(function (evt) {
+                    $("#DevAssigneeChosenId").val($("#SelectedId option:selected").text().trim());
+                });
+        </script>
+            });*@
+
+
 
     @Scripts.Render("~/bundles/jqueryval")
 }

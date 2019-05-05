@@ -71,6 +71,6 @@
 @foreach (var item in Model.Tasks)
 {
     <div class="panel panel-default">
-        <div class="panel-heading">#@Html.DisplayFor(modelItem => item.ID) <span>@Html.DisplayFor(modelItem => item.Name)</span> <span style="float:right">Status: @Html.DisplayFor(modelItem => item.Status)</span></div>
+        <div class="panel-heading"><a href=@Url.Action("TaskDetails", new { Id = item.ID})> #@Html.DisplayFor(modelItem => item.ID) </a><span><a href=@Url.Action("TaskDetails", new { Id = item.ID})> @Html.DisplayFor(modelItem => item.Name)</a></span> <span style="float:right">Status: @Html.DisplayFor(modelItem => item.Status)</span></div>
     </div>
 }
