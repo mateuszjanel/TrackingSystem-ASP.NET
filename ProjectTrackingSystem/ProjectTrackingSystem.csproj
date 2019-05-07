@@ -238,6 +238,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddUserToProjectModels.cs" />
     <Compile Include="Models\AdminPanelModel.cs" />
     <Compile Include="Models\CommentModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -318,6 +319,7 @@
     <Content Include="Views\Projects\TaskDetails.cshtml" />
     <Content Include="Views\Comments\_CreateComment.cshtml" />
     <Content Include="Views\Comments\_CreateWorklog.cshtml" />
+    <Content Include="Views\AdminPanel\_AddUserToProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

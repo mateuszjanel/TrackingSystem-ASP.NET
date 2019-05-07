@@ -36,14 +36,14 @@ namespace ProjectTrackingSystem.Controllers
         [HttpPost]
         public ActionResult CreateProject(Project projectToAdd)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Projects.Add(projectToAdd);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(projectToAdd);
-            
+
         }
 
         public ActionResult ProjectDetails(int? id)
@@ -52,10 +52,10 @@ namespace ProjectTrackingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var model = new ProjectDetails_AdminPanelModels
             {
-                Project = db.Projects.Find(id),                
-                Users = db.Users.ToList()
+                Project = db.Projects.Find(id)
             };
             if (model.Project != null)
             {
@@ -75,6 +75,80 @@ namespace ProjectTrackingSystem.Controllers
             }
             return View(projectToEdit);
         }
+
+        public ActionResult _AddUserToProject(int Id)
+        {
+            var users = db.Users.ToList().OrderBy(x => x.Surname);
+            var list = users.Select(x => new SelectListItem() { Value = x.Id, Text = x.Name + " " + x.Surname }).ToList();
+            //var contr = db.Projects.Find(Id).Contributors;
+
+            //foreach(var usr in list)
+            //{
+            //    if (contr.Contains(users.ToList().Find(usr.Value)))
+            //    {
+
+            //    }
+            //}
+
+            var model = new AddUserToProjectModels
+            {
+                ProjectId = Id,
+                Users = list,
+                Contributors = db.Projects.Find(Id).Contributors
+            };
+            model.Contributors = model.Contributors.OrderBy(x => x.Surname).ToList();
+
+            return PartialView("_AddUserToProject", model);
+        }
+
+        [HttpPost]
+        public ActionResult _AddUserToProject(AddUserToProjectModels model)
+        {
+            if (model.UserToAddId == null)
+            {
+                return RedirectToAction("ProjectDetails", new { id = model.ProjectId });
+            }
+
+            Project project = db.Projects.Find(model.ProjectId);
+            ApplicationUser userToAdd = db.Users.Find(model.UserToAddId);
+
+            project.Contributors.Add(userToAdd);
+            db.Entry(project).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("ProjectDetails", new { id = model.ProjectId });
+        }
+
+        public ActionResult RemoveUserFromProject(string Id, int projectId)
+        {
+            Project project = db.Projects.Find(projectId);
+            ApplicationUser userToRemove = db.Users.Find(Id);
+            project.Contributors.Remove(userToRemove);
+            db.Entry(project).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("ProjectDetails", new { id = projectId });
+        }
+
+        public ActionResult RemoveProject(int Id)
+        {
+            Project project = db.Projects.Find(Id);
+            db.Projects.Remove(project);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        //public ActionResult MakeAdmin(int Id)
+        //{
+        //    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        //    try
+        //    {
+        //        ApplicationUser user = UserManager.FindById(Id);
+
+
+        //    }
+        //}
 
         // GET: AdminPanel/Details/5
         public ActionResult Details(int id)

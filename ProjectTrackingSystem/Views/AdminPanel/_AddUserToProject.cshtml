@@ -1,0 +1,44 @@
+﻿@model ProjectTrackingSystem.Models.AddUserToProjectModels
+
+@{ Layout = null; }
+
+@using (Html.BeginForm("_AddUserToProject", "AdminPanel", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>Contributors</h4>
+    <hr />
+    if (Model.Contributors == null)
+    {
+        <span>No contributors in this project.</span>
+    }
+    else
+    {
+        <table class="table">
+            @foreach (var cont in Model.Contributors)
+            {
+                <tr>
+                    <td>
+                        <span>@Html.DisplayFor(item => cont.Name)</span>&nbsp;<span>@Html.DisplayFor(item => cont.Surname)</span>&nbsp;<span>(@Html.DisplayFor(item => cont.UserName))</span> <button type="button" id="add_proj_button" class="btn_in-table btn btn-default" onclick="location.href='@Url.Action("RemoveUserFromProject", "AdminPanel", new { Id = cont.Id, projectId = Model.ProjectId })'" formmethod="post"><img src="~/Content/Img/trash-circle-red-512.png" class="btn_img" /> </button>
+                        <span>@Html.HiddenFor(item => cont.Id)</span>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    <div class="form-horizontal">
+        @Html.DropDownListFor(model => model.UserToAddId, Model.Users, htmlAttributes: new { @class = "form-control" })
+        @Html.Hidden("UserToAddChosenId", Model.UserToAddId)
+        @Html.ValidationMessageFor(model => model.UserToAddId, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProjectId)
+
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add" class="btn btn-default" />
+        </div>
+    </div>}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

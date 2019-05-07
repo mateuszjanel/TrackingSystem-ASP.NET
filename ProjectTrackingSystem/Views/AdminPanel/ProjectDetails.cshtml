@@ -53,26 +53,7 @@
 
     </div>
     <div class="col-lg-6">
-        <h4>Contributors</h4>
-        <hr />
-        @if (Model.Project.Contributors == null)
-        {
-            <span>No contributors in this project.</span>
-        }
-        else
-        {
-            <table class="table">
-                @foreach (var cont in Model.Project.Contributors)
-                {
-                    <tr>
-                        <td>
-                            <span>@Html.DisplayFor(item => cont.Name)</span>&nbsp;<span>@Html.DisplayFor(item => cont.Surname)</span>&nbsp;<span>(@Html.DisplayFor(item => cont.UserName))</span> <button type="button" id="add_proj_button" class="btn_in-table btn btn-default"><img src="~/Content/Img/trash-circle-red-512.png" class="btn_img" /> </button>
-                            <span>@Html.HiddenFor(item => cont.Id)</span>
-                        </td>
-                    </tr>
-                }
-            </table>
-        }
+        @{ Html.RenderAction("_AddUserToProject", new { Id = Model.Project.projectID }); }
     </div>
 </div>
 

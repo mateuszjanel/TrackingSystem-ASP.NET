@@ -24,7 +24,7 @@
                     <th>
                         Surname
                     </th>
-                    <th></th>
+                    <th>Options</th>
                 </tr>
 
                 @foreach (var item in Model.Users)
@@ -38,6 +38,8 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 }
@@ -64,6 +66,7 @@
                         Description
                     </th>
                     <th>Details</th>
+                    <th>Delete</th>
                 </tr>
 
                 @foreach (var item in Model.Projects)
@@ -80,6 +83,9 @@
                         </td>
                         <td>
                             @Html.ActionLink("Details", "ProjectDetails", "AdminPanel", new { id = item.projectID }, null)
+                        </td>
+                        <td>
+                        @Html.ActionLink("Delete", "RemoveProject", "AdminPanel", new { Id = item.projectID }, null)
                         </td>
                     </tr>
                 }
